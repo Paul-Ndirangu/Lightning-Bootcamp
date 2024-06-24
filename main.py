@@ -6,6 +6,7 @@ import config
 
 app = FastAPI()
 
+# Endpoint to get user account details, example (accountid)
 @app.get("/account_details")
 async def account_details():
     accountId = config.id
@@ -21,6 +22,7 @@ async def account_details():
         "response": response.json()
     }
 
+# Endpoint to create an invoice
 @app.post("/create_invoice")
 async def create_invoice(amount: float, memo: str, webhook_url, webhook_secret):
     url = "https://api-sandbox.poweredbyibex.io/v2/invoice/add"
@@ -46,7 +48,7 @@ async def create_invoice(amount: float, memo: str, webhook_url, webhook_secret):
         "response": response.json()
     }
 
-
+# Endpoint to pay an invoice
 @app.post("/pay_invoice")
 async def pay_invoice(amount: float, webhook_url, webhook_secret, bolt11:str):
     url = "https://api-sandbox.poweredbyibex.io/v2/invoice/pay"
